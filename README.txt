@@ -1,4 +1,4 @@
-System Short Answer Scoring   evaluaciÛn de escritura autom·tica
+System Short Answer Scoring   evaluaci√≥n de escritura autom√°tica
 
 Se uso un sistema operativo windows 7 en vercion de 32 bits
 vercion de python 2.7 
@@ -112,17 +112,3 @@ sASS/                            Paquete superior
             __init__.py
               ...
 
-
-% tree
-+-- __init__.py
-+-- ponder
-¶   +-- __init__.py
-¶   +-- server
-¶   ¶   +-- __init__.py
-¶   ¶   +-- views
-¶   ¶       +-- environment_templates.py
-¶   ¶       +-- groups.py
-¶   ¶       +-- __init__.py
-¶   ¶       +-- instances.py
-¶   ¶       +-- tasks.py
-¶   ¶       +-- users.py
