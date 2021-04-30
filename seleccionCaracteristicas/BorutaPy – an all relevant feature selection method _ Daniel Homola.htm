@@ -1,0 +1,614 @@
+<!DOCTYPE html>
+<!--[if IE 9]><html class="no-js ie9" lang="en-US"><![endif]-->
+<!--[if gt IE 9]><!-->
+<html class=" js no-touch cssanimations csstransforms csstransforms3d csstransitions" style="" lang="en-US"><!--<![endif]--><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BorutaPy – an all relevant feature selection method | Daniel Homola</title>
+  <link rel="profile" href="http://gmpg.org/xfn/11">
+  <link rel="pingback" href="http://danielhomola.com/xmlrpc.php">
+  <link rel="dns-prefetch" href="http://s0.wp.com/">
+<link rel="dns-prefetch" href="http://fonts.googleapis.com/">
+<link rel="dns-prefetch" href="http://s.w.org/">
+<link rel="alternate" type="application/rss+xml" title="Daniel Homola » Feed" href="http://danielhomola.com/feed/">
+<link rel="alternate" type="application/rss+xml" title="Daniel Homola » Comments Feed" href="http://danielhomola.com/comments/feed/">
+<link rel="alternate" type="application/rss+xml" title="Daniel Homola » BorutaPy – an all relevant feature selection method Comments Feed" href="http://danielhomola.com/2015/05/08/borutapy-an-all-relevant-feature-selection-method/feed/">
+		<script async="" src="BorutaPy%20%E2%80%93%20an%20all%20relevant%20feature%20selection%20method%20_%20Daniel%20Homola_files/a_003.htm"></script><script async="" src="BorutaPy%20%E2%80%93%20an%20all%20relevant%20feature%20selection%20method%20_%20Daniel%20Homola_files/analytics.js"></script><script type="text/javascript">
+			window._wpemojiSettings = {"baseUrl":"https:\/\/s.w.org\/images\/core\/emoji\/2.2.1\/72x72\/","ext":".png","svgUrl":"https:\/\/s.w.org\/images\/core\/emoji\/2.2.1\/svg\/","svgExt":".svg","source":{"concatemoji":"http:\/\/danielhomola.com\/wp-includes\/js\/wp-emoji-release.min.js?ver=4.7.6"}};
+			!function(a,b,c){function d(a){var b,c,d,e,f=String.fromCharCode;if(!k||!k.fillText)return!1;switch(k.clearRect(0,0,j.width,j.height),k.textBaseline="top",k.font="600 32px Arial",a){case"flag":return k.fillText(f(55356,56826,55356,56819),0,0),!(j.toDataURL().length<3e3)&&(k.clearRect(0,0,j.width,j.height),k.fillText(f(55356,57331,65039,8205,55356,57096),0,0),b=j.toDataURL(),k.clearRect(0,0,j.width,j.height),k.fillText(f(55356,57331,55356,57096),0,0),c=j.toDataURL(),b!==c);case"emoji4":return k.fillText(f(55357,56425,55356,57341,8205,55357,56507),0,0),d=j.toDataURL(),k.clearRect(0,0,j.width,j.height),k.fillText(f(55357,56425,55356,57341,55357,56507),0,0),e=j.toDataURL(),d!==e}return!1}function e(a){var c=b.createElement("script");c.src=a,c.defer=c.type="text/javascript",b.getElementsByTagName("head")[0].appendChild(c)}var f,g,h,i,j=b.createElement("canvas"),k=j.getContext&&j.getContext("2d");for(i=Array("flag","emoji4"),c.supports={everything:!0,everythingExceptFlag:!0},h=0;h<i.length;h++)c.supports[i[h]]=d(i[h]),c.supports.everything=c.supports.everything&&c.supports[i[h]],"flag"!==i[h]&&(c.supports.everythingExceptFlag=c.supports.everythingExceptFlag&&c.supports[i[h]]);c.supports.everythingExceptFlag=c.supports.everythingExceptFlag&&!c.supports.flag,c.DOMReady=!1,c.readyCallback=function(){c.DOMReady=!0},c.supports.everything||(g=function(){c.readyCallback()},b.addEventListener?(b.addEventListener("DOMContentLoaded",g,!1),a.addEventListener("load",g,!1)):(a.attachEvent("onload",g),b.attachEvent("onreadystatechange",function(){"complete"===b.readyState&&c.readyCallback()})),f=c.source||{},f.concatemoji?e(f.concatemoji):f.wpemoji&&f.twemoji&&(e(f.twemoji),e(f.wpemoji)))}(window,document,window._wpemojiSettings);
+		</script><script src="BorutaPy%20%E2%80%93%20an%20all%20relevant%20feature%20selection%20method%20_%20Daniel%20Homola_files/wp-emoji-release.js" type="text/javascript" defer="defer"></script>
+		<style type="text/css">
+img.wp-smiley,
+img.emoji {
+	display: inline !important;
+	border: none !important;
+	box-shadow: none !important;
+	height: 1em !important;
+	width: 1em !important;
+	margin: 0 .07em !important;
+	vertical-align: -0.1em !important;
+	background: none !important;
+	padding: 0 !important;
+}
+</style>
+<link rel="stylesheet" id="crayon-css" href="BorutaPy%20%E2%80%93%20an%20all%20relevant%20feature%20selection%20method%20_%20Daniel%20Homola_files/crayon.css" type="text/css" media="all">
+<link rel="stylesheet" id="crayon-theme-github-css" href="BorutaPy%20%E2%80%93%20an%20all%20relevant%20feature%20selection%20method%20_%20Daniel%20Homola_files/github.css" type="text/css" media="all">
+<link rel="stylesheet" id="crayon-font-monaco-css" href="BorutaPy%20%E2%80%93%20an%20all%20relevant%20feature%20selection%20method%20_%20Daniel%20Homola_files/monaco.css" type="text/css" media="all">
+<link rel="stylesheet" id="rs-plugin-settings-css" href="BorutaPy%20%E2%80%93%20an%20all%20relevant%20feature%20selection%20method%20_%20Daniel%20Homola_files/settings.css" type="text/css" media="all">
+<style id="rs-plugin-settings-inline-css" type="text/css">
+.tp-caption a{color:#ff7302;text-shadow:none;-webkit-transition:all 0.2s ease-out;-moz-transition:all 0.2s ease-out;-o-transition:all 0.2s ease-out;-ms-transition:all 0.2s ease-out}.tp-caption a:hover{color:#ffa902}
+</style>
+<link rel="stylesheet" id="x-stack-css" href="BorutaPy%20%E2%80%93%20an%20all%20relevant%20feature%20selection%20method%20_%20Daniel%20Homola_files/integrity-light.css" type="text/css" media="all">
+<link rel="stylesheet" id="x-font-custom-css" href="BorutaPy%20%E2%80%93%20an%20all%20relevant%20feature%20selection%20method%20_%20Daniel%20Homola_files/css.css" type="text/css" media="all">
+<link rel="stylesheet" id="x-shortcodes-css" href="BorutaPy%20%E2%80%93%20an%20all%20relevant%20feature%20selection%20method%20_%20Daniel%20Homola_files/integrity-light_002.css" type="text/css" media="all">
+<!-- `sharedaddy` is included in the concatenated jetpack.css -->
+<link rel="stylesheet" id="social-logos-css" href="BorutaPy%20%E2%80%93%20an%20all%20relevant%20feature%20selection%20method%20_%20Daniel%20Homola_files/social-logos.css" type="text/css" media="all">
+<link rel="stylesheet" id="jetpack_css-css" href="BorutaPy%20%E2%80%93%20an%20all%20relevant%20feature%20selection%20method%20_%20Daniel%20Homola_files/jetpack.css" type="text/css" media="all">
+<script type="text/javascript" src="BorutaPy%20%E2%80%93%20an%20all%20relevant%20feature%20selection%20method%20_%20Daniel%20Homola_files/jquery_002.js"></script>
+<script type="text/javascript" src="BorutaPy%20%E2%80%93%20an%20all%20relevant%20feature%20selection%20method%20_%20Daniel%20Homola_files/jquery-migrate.js"></script>
+<script type="text/javascript">
+/* <![CDATA[ */
+var CrayonSyntaxSettings = {"version":"_2.7.2_beta","is_admin":"0","ajaxurl":"http:\/\/danielhomola.com\/wp-admin\/admin-ajax.php","prefix":"crayon-","setting":"crayon-setting","selected":"crayon-setting-selected","changed":"crayon-setting-changed","special":"crayon-setting-special","orig_value":"data-orig-value","debug":""};
+var CrayonSyntaxStrings = {"copy":"Press %s to Copy, %s to Paste","minimize":"Click To Expand Code"};
+/* ]]> */
+</script>
+<script type="text/javascript" src="BorutaPy%20%E2%80%93%20an%20all%20relevant%20feature%20selection%20method%20_%20Daniel%20Homola_files/crayon.js"></script>
+<script type="text/javascript" src="BorutaPy%20%E2%80%93%20an%20all%20relevant%20feature%20selection%20method%20_%20Daniel%20Homola_files/jquery.js"></script>
+<script type="text/javascript" src="BorutaPy%20%E2%80%93%20an%20all%20relevant%20feature%20selection%20method%20_%20Daniel%20Homola_files/jquery_003.js"></script>
+<script type="text/javascript" src="BorutaPy%20%E2%80%93%20an%20all%20relevant%20feature%20selection%20method%20_%20Daniel%20Homola_files/x-head.js"></script>
+<script type="text/javascript" src="BorutaPy%20%E2%80%93%20an%20all%20relevant%20feature%20selection%20method%20_%20Daniel%20Homola_files/x-shortcodes-head.js"></script>
+<link rel="https://api.w.org/" href="http://danielhomola.com/wp-json/">
+<link rel="canonical" href="http://danielhomola.com/2015/05/08/borutapy-an-all-relevant-feature-selection-method/">
+<link rel="shortlink" href="http://wp.me/p6bguZ-cc">
+<link rel="alternate" type="application/json+oembed" href="http://danielhomola.com/wp-json/oembed/1.0/embed?url=http%3A%2F%2Fdanielhomola.com%2F2015%2F05%2F08%2Fborutapy-an-all-relevant-feature-selection-method%2F">
+<link rel="alternate" type="text/xml+oembed" href="http://danielhomola.com/wp-json/oembed/1.0/embed?url=http%3A%2F%2Fdanielhomola.com%2F2015%2F05%2F08%2Fborutapy-an-all-relevant-feature-selection-method%2F&amp;format=xml">
+
+<link rel="dns-prefetch" href="http://v0.wordpress.com/">
+<style type="text/css">img#wpstats{display:none}</style><link rel="shortcut icon" href="http://danielhomola.com/wp-content/uploads/2015/04/favicon.png"><meta name="generator" content="Powered by Visual Composer - drag and drop page builder for WordPress.">
+
+<!-- Jetpack Open Graph Tags -->
+<meta property="og:type" content="article">
+<meta property="og:title" content="BorutaPy – an all relevant feature selection method">
+<meta property="og:url" content="http://danielhomola.com/2015/05/08/borutapy-an-all-relevant-feature-selection-method/">
+<meta property="og:description" content="TL,DR: There’s a pretty clever all-relevant feature selection method, which was conceived by Witold R. Rudnicki and developed by Miron B. Kursa at the ICM UW. Here is its website. While worki…">
+<meta property="article:published_time" content="2015-05-08T18:25:08+00:00">
+<meta property="article:modified_time" content="2016-02-08T10:25:26+00:00">
+<meta property="og:site_name" content="Daniel Homola">
+<meta property="og:image" content="http://danielhomola.com/wp-content/uploads/2015/05/boruta-e1431125260361.png">
+<meta property="og:image:width" content="606">
+<meta property="og:image:height" content="430">
+<meta property="og:locale" content="en_US">
+<meta name="twitter:card" content="summary">
+			<style type="text/css" id="wp-custom-css">
+				/*
+You can add your own CSS here.
+
+Click the help icon above to learn more.
+*/
+
+.page-id-2 footer.x-colophon {
+bottom: 0;
+left: 0;
+right: 0;
+position: fixed;
+}
+
+.page-id-176 footer.x-colophon {
+bottom: 0;
+left: 0;
+right: 0;
+position: fixed;
+}			</style>
+		<style id="x-customizer-css-output" type="text/css">body{background-color:#f3f3f3;}a,h1 a:hover,h2 a:hover,h3 a:hover,h4 a:hover,h5 a:hover,h6 a:hover,.x-topbar .p-info a:hover,.x-breadcrumb-wrap a:hover,.widget ul li a:hover,.widget ol li a:hover,.widget.widget_text ul li a,.widget.widget_text ol li a,.widget_nav_menu .current-menu-item > a,.x-widgetbar .widget ul li a:hover,.x-accordion-heading .x-accordion-toggle:hover,.x-comment-author a:hover,.x-comment-time:hover{color:#4cd5ff;}a:hover,.widget.widget_text ul li a:hover,.widget.widget_text ol li a:hover,.x-twitter-widget ul li a:hover,.x-recent-posts a:hover .h-recent-posts{color:#227d8f;}.rev_slider_wrapper,a.x-img-thumbnail:hover,.x-slider-revolution-container.below,.page-template-template-blank-3-php .x-slider-revolution-container.above,.page-template-template-blank-6-php .x-slider-revolution-container.above{border-color:#4cd5ff;}.entry-thumb:before,.pagination span.current,.flex-direction-nav a,.flex-control-nav a:hover,.flex-control-nav a.flex-active,.jp-play-bar,.jp-volume-bar-value,.x-dropcap,.x-skill-bar .bar,.x-pricing-column.featured h2,.h-comments-title small,.x-entry-share .x-share:hover,.x-highlight,.x-recent-posts .x-recent-posts-img,.x-recent-posts .x-recent-posts-img:before,.tp-bullets.simplebullets.round .bullet:hover,.tp-bullets.simplebullets.round .bullet.selected,.tp-bullets.simplebullets.round-old .bullet:hover,.tp-bullets.simplebullets.round-old .bullet.selected,.tp-bullets.simplebullets.square-old .bullet:hover,.tp-bullets.simplebullets.square-old .bullet.selected,.tp-bullets.simplebullets.navbar .bullet:hover,.tp-bullets.simplebullets.navbar .bullet.selected,.tp-bullets.simplebullets.navbar-old .bullet:hover,.tp-bullets.simplebullets.navbar-old .bullet.selected,.tp-leftarrow.default,.tp-rightarrow.default{background-color:#4cd5ff;}.x-recent-posts a:hover .x-recent-posts-img,.tp-leftarrow.default:hover,.tp-rightarrow.default:hover{background-color:#227d8f;}.x-nav-tabs > .active > a,.x-nav-tabs > .active > a:hover{-webkit-box-shadow:inset 0 3px 0 0 #4cd5ff;box-shadow:inset 0 3px 0 0 #4cd5ff;}.x-container-fluid.width{width:85%;}.x-container-fluid.max{max-width:1000px;}.x-main{width:71.536945%;}.x-sidebar{width:23.536945%;}.x-topbar .p-info,.x-topbar .p-info a,.x-navbar .x-nav > li > a,.x-navbar .sub-menu a,.x-breadcrumb-wrap a,.x-breadcrumbs .delimiter{color:#919191;}.x-navbar .x-nav > li > a:hover,.x-navbar .x-nav > .sfHover > a,.x-navbar .x-nav > .current-menu-item > a,.x-navbar .sub-menu a:hover,.x-navbar .sub-menu .sfHover > a,.x-navbar .sub-menu .current-menu-item > a,.x-nav .x-megamenu > .sub-menu > li > a{color:#272727;}.x-navbar .x-nav > li > a:hover,.x-navbar .x-nav > .sfHover > a,.x-navbar .x-nav > .current-menu-item > a{-webkit-box-shadow:inset 0 4px 0 0 #4cd5ff;box-shadow:inset 0 4px 0 0 #4cd5ff;}.x-navbar .x-nav > li > a{height:90px;padding-top:53px;}.sf-menu > li ul{top:75px;;}.x-comment-author,.x-comment-time,.comment-form-author label,.comment-form-email label,.comment-form-url label,.comment-form-rating label,.comment-form-comment label,.widget_calendar #wp-calendar caption,.widget.widget_rss li .rsswidget{font-family:Ubuntu;font-weight:400;}.p-landmark-sub,.p-meta,input,button,select,textarea{font-family:Lato;}@media (max-width:979px){.x-navbar .x-nav-collapse .x-nav li a{color:#919191;-webkit-box-shadow:none;box-shadow:none;}.x-navbar .x-nav-collapse .x-nav li a:hover,.x-navbar .x-nav-collapse .x-nav .current-menu-item > a{color:#272727;}.x-widgetbar{left:0;right:0;}}body{font-size:16px;font-style:normal;font-weight:400;}a:focus,select:focus,input[type="file"]:focus,input[type="radio"]:focus,input[type="submit"]:focus,input[type="checkbox"]:focus{outline:thin dotted #333;outline:5px auto #4cd5ff;outline-offset:-1px;}h1,h2,h3,h4,h5,h6,.h1,.h2,.h3,.h4,.h5,.h6{font-style:normal;font-weight:400;letter-spacing:-1px;}.x-main.full{float:none;display:block;width:auto;}@media (max-width:979px){.x-main.full,.x-main.left,.x-main.right,.x-sidebar.left,.x-sidebar.right{float:none;display:block;width:auto !important;}}.entry-header,.entry-content{font-size:16px;}.x-brand{font-style:normal;font-weight:400;letter-spacing:-5px;}body,input,button,select,textarea{font-family:"Lato","Helvetica Neue",Helvetica,sans-serif;}h1,h2,h3,h4,h5,h6,.h1,.h2,.h3,.h4,.h5,.h6{font-family:"Ubuntu","Helvetica Neue",Helvetica,sans-serif;}.x-brand{font-family:"Oxygen","Helvetica Neue",Helvetica,sans-serif;}.x-navbar .x-nav > li > a{font-family:"Ubuntu","Helvetica Neue",Helvetica,sans-serif;}.x-navbar{font-size:14px;}body.x-navbar-fixed-top-active .x-navbar-wrap{height:90px;}.x-navbar-inner{min-height:90px;}.x-brand{font-size:54px;font-size:5.4rem;}.x-navbar .x-brand{margin-top:16px;}.x-navbar .x-nav > li > a{font-style:normal;font-weight:400;}.x-btn-navbar{margin-top:33px;;}.x-btn-navbar,.x-btn-navbar.collapsed{font-size:20px;}@media (max-width:979px){body.x-navbar-fixed-top-active .x-navbar-wrap{height:auto;}}.x-btn,.button,[type="submit"]{color:#ffffff;border-color:#63daff;background-color:#63daff;}.x-btn:hover,.button:hover,[type="submit"]:hover{color:#e2e2e2;border-color:#227d8f;background-color:#227d8f;}.x-btn.x-btn-real,.x-btn.x-btn-real:hover{margin-bottom:0.25em;text-shadow:0 0.075em 0.075em rgba(0,0,0,0.65);}.x-btn.x-btn-real{-webkit-box-shadow:0 0.25em 0 0 #227d8f,0 4px 9px rgba(0,0,0,0.75);box-shadow:0 0.25em 0 0 #227d8f,0 4px 9px rgba(0,0,0,0.75);}.x-btn.x-btn-real:hover{-webkit-box-shadow:0 0.25em 0 0 #1f6b87,0 4px 9px rgba(0,0,0,0.75);box-shadow:0 0.25em 0 0 #1f6b87,0 4px 9px rgba(0,0,0,0.75);}.x-btn.x-btn-flat,.x-btn.x-btn-flat:hover{margin-bottom:0;text-shadow:0 0.075em 0.075em rgba(0,0,0,0.65);-webkit-box-shadow:none;box-shadow:none;}.x-btn.x-btn-transparent,.x-btn.x-btn-transparent:hover{margin-bottom:0;border-width:3px;text-shadow:none;text-transform:uppercase;background-color:transparent;-webkit-box-shadow:none;box-shadow:none;}.x-btn-circle-wrap:before{width:172px;height:43px;background:url(http://danielhomola.com/wp-content/themes/x/framework/img/global/btn-circle-top-small.png) center center no-repeat;-webkit-background-size:172px 43px;background-size:172px 43px;}.x-btn-circle-wrap:after{width:190px;height:43px;background:url(http://danielhomola.com/wp-content/themes/x/framework/img/global/btn-circle-bottom-small.png) center center no-repeat;-webkit-background-size:190px 43px;background-size:190px 43px;}.x-btn,.x-btn:hover,.button,.button:hover,[type="submit"],[type="submit"]:hover{text-shadow:0 0.075em 0.075em rgba(0,0,0,0.5);}.x-btn,.button,[type="submit"]{border-radius:0.25em;}</style>
+    <style id="x-customizer-css-custom" type="text/css">
+      @media (max-width: 979px){
+.x-nav-collapse, .x-nav-collapse.collapse {
+overflow: hidden;
+height: 0!important;
+}
+.x-nav-collapse, .x-nav-collapse.collapse.in {
+height: auto!important;
+}
+}
+
+/*
+.page-id-2 footer.x-colophon {
+bottom: 0;
+left: 0;
+right: 0;
+position: fixed;
+}
+
+.page-id-176 footer.x-colophon {
+bottom: 0;
+left: 0;
+right: 0;
+position: fixed;
+}*/
+
+#disqus_thread
+{
+background-color: #ffffff;
+-webkit-box-shadow: rgba(0,0,0,0.1333) 0 0.15em 0.35em 0;
+border-radius: 4px;
+box-shadow: rgba(0,0,0,0.1333) 0 0.15em 0.35em 0;
+padding: 60px;
+display: block;
+margin-top: 0.5em;
+}
+    </style>
+
+  <script type="text/javascript" async="" src="BorutaPy%20%E2%80%93%20an%20all%20relevant%20feature%20selection%20method%20_%20Daniel%20Homola_files/embed.js"></script><script async="" type="text/javascript" src="BorutaPy%20%E2%80%93%20an%20all%20relevant%20feature%20selection%20method%20_%20Daniel%20Homola_files/count_002.js"></script><link rel="prefetch" href="BorutaPy%20%E2%80%93%20an%20all%20relevant%20feature%20selection%20method%20_%20Daniel%20Homola_files/a_data/lounge.css"><link rel="prefetch" href="BorutaPy%20%E2%80%93%20an%20all%20relevant%20feature%20selection%20method%20_%20Daniel%20Homola_files/a_data/common.js"><link rel="prefetch" href="BorutaPy%20%E2%80%93%20an%20all%20relevant%20feature%20selection%20method%20_%20Daniel%20Homola_files/a_data/lounge.js"><link rel="prefetch" href="BorutaPy%20%E2%80%93%20an%20all%20relevant%20feature%20selection%20method%20_%20Daniel%20Homola_files/a_data/config.js"></head>
+
+<body class="post-template-default single single-post postid-756 single-format-standard x-integrity x-integrity-light x-navbar-fixed-top-active x-full-width-layout-active x-full-width-active x-portfolio-meta-disabled wpb-js-composer js-comp-ver-4.1.3 vc_responsive x-v2_4_0 x-shortcodes-v2_4_0">
+
+  
+  <div id="top" class="site"> <!-- BEGIN #top.site -->
+
+  
+  
+
+  <header class="masthead masthead-inline" role="banner">
+    
+    
+
+  <div class="x-navbar-wrap">
+    <div class="x-navbar x-navbar-fixed-top">
+      <div class="x-navbar-inner">
+        <div class="x-container-fluid max width">
+          
+
+<a href="http://danielhomola.com/" class="x-brand img" title="data science &amp; music">
+  <img src="BorutaPy%20%E2%80%93%20an%20all%20relevant%20feature%20selection%20method%20_%20Daniel%20Homola_files/logo1.jpg" alt="data science &amp; music"></a>          
+<a href="#" class="x-btn-navbar collapsed" data-toggle="collapse" data-target=".x-nav-collapse">
+  <i class="x-icon-bars"></i><span class="visually-hidden">Navigation</span>
+</a>
+
+<nav class="x-nav-collapse collapse" role="navigation">
+
+  <ul id="menu-my-navigation" class="x-nav sf-menu sf-js-enabled"><li id="menu-item-371" class="menu-item menu-item-type-taxonomy menu-item-object-category current-post-ancestor current-menu-parent current-post-parent menu-item-371 tax-item tax-item-3"><a href="http://danielhomola.com/category/blog/">Blog</a></li>
+<li id="menu-item-382" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-382"><a href="http://danielhomola.com/science/">Science</a></li>
+<li id="menu-item-796" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-796"><a href="http://danielhomola.com/music/">Music</a></li>
+<li id="menu-item-610" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-610"><a href="http://danielhomola.com/contact/">Contact</a></li>
+<li id="menu-item-383" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-383"><a href="http://danielhomola.com/about/">About</a></li>
+<li class="menu-item menu-item-navbar-search"><a href="#" class="x-btn-navbar-search"><i class="x-icon x-icon-search"></i><span class="x-hidden-desktop"> Search</span></a></li></ul>
+</nav> <!-- end .x-nav-collapse.collapse -->        </div>
+      </div> <!-- end .x-navbar-inner -->
+    </div> <!-- end .x-navbar -->
+  </div> <!-- end .x-navbar-wrap -->
+
+    
+    </header>
+
+  
+  
+  
+  <div class="x-container-fluid max width offset cf">
+    <div class="x-main full" role="main">
+
+              
+<article id="post-756" class="post-756 post type-post status-publish format-standard hentry category-blog tag-all-relevant tag-boruta tag-borutapy tag-feature-selection no-post-thumbnail">
+  <div class="entry-featured">
+      </div>
+  <div class="entry-wrap">
+    
+<header class="entry-header">
+    <h1 class="entry-title">BorutaPy – an all relevant feature selection method</h1>
+    <p class="p-meta"><span><i class="x-icon-pencil"></i> danielhomola</span><span><time class="entry-date" datetime="2015-05-08T18:25:08+00:00"><i class="x-icon-calendar"></i> 08/05/2015</time></span><span><a href="http://danielhomola.com/category/blog/" title="View all posts in: “Blog”"><i class="x-icon-bookmark"></i> Blog</a></span><span><a href="http://danielhomola.com/2015/05/08/borutapy-an-all-relevant-feature-selection-method/#comments" title="Leave a comment on: “BorutaPy – an all relevant feature selection method”" class="meta-comments"><i class="x-icon-comments"></i> 9 Comments</a></span></p></header>    
+
+
+<div class="entry-content content">
+
+
+  <h3 style="text-align: justify;">TL,DR:</h3>
+<p style="text-align: justify;">There’s a pretty clever all-relevant 
+feature selection method, which was conceived by Witold R. Rudnicki and 
+developed by Miron B. Kursa at the ICM UW. Here is its <a title="Boruta" href="https://m2.icm.edu.pl/boruta/" target="_blank">website</a>.</p>
+<p style="text-align: justify;">While working on my PhD project I read 
+their paper, really liked the method, but didn’t quite like&nbsp;how 
+slow it was. It’s based on R’s Random Forest implementation which runs 
+only on a single core.</p>
+<p style="text-align: justify;">On the other hand, I knew that the core 
+dev team working at scikit-learn on the Random Forest Classifier has 
+made an incredible job at optimizing its performance making it the <a href="http://www.slideshare.net/glouppe/accelerating-random-forests-in-scikitlearn" target="_blank">fastest</a>
+ implementation currently available. So I thought I’d re-implement the 
+algorithm in Python. It runs pretty&nbsp;fast now, and has a 
+scikit-learn like interface, so you can call fit(), transform() and 
+fit_transform() on it. You can check it out on my <a title="BorutaPy" href="https://github.com/danielhomola/boruta_py" target="_blank">GitHub</a>.</p>
+<p style="text-align: justify;">Miron kindly agreed to benchmark it 
+against his original version so it might get modified, but in the 
+meanwhile please feel free to use it and let me know what you think!</p>
+<p style="text-align: justify;"></p><hr class="x-hr">
+<h3 style="text-align: justify;">The long version</h3>
+<h4 style="text-align: justify;">So what’s feature selection?</h4>
+<p style="text-align: justify;">In many data analysis and modelling 
+projects&nbsp;we end up with hundreds or thousands of collected 
+features. Even worse, sometimes we have way more features than samples. 
+It is&nbsp;a setting that is becoming increasingly common, at least in 
+biomedical sciences for sure. This is called a small n large p 
+situation, which pretty much means you’re left with regularized 
+(preferably lasso) regression techniques&nbsp;if you want to avoid 
+massively over-fitting your data.</p>
+<p style="text-align: justify;">But fortunately most of the time not all
+ your variables are interesting or relevant to the stuff you’re trying 
+to understand/model. So you can try to devise clever ways to select the 
+important ones and incorporate only those into your model, this is 
+called feature selection and there are loads of published methods 
+floating around.</p>
+<h4 style="text-align: justify;">Doing the simple way</h4>
+<p style="text-align: justify;">Probably the easiest way to go about 
+feature selection, is to do some univariate test on each of your 
+features relating it to the predicted outcome, and select the ones that 
+do pretty well based on some obscenely arbitrary measure or some simple 
+statistical test.</p>
+<p style="text-align: justify;">This is simple and quick, but also 
+univariate, which means it’s probably only useful if you can guarantee 
+that all of your features are completely independent. Unless you are 
+modelling some simulated toy dataset this is never the case.</p>
+<p style="text-align: justify;">In fact, one of the main reasons doing 
+science is so incredibly&nbsp;hard is because of the many intricate 
+unknown relationships between your measured variables and other 
+confounders you haven’t even thought of. OK, so what else?</p>
+<h4 style="text-align: justify;">Going multivariate</h4>
+<p style="text-align: justify;">Well, you can do feature selection using
+ a multivariate model, like Support Vector Machine. First you fit it to 
+your data and get the weights it assigns to each of your features. Then 
+you can recursively get rid of features in each round which didn’t do 
+too well, until you reach some predefined end&nbsp;point when&nbsp;you 
+stop.</p>
+<p style="text-align: justify;">This is definitely slower, but it is 
+also presumably better as it’s multivariate meaning it will attempt to 
+weigh in the various relationships between your predictive variables and
+ select a set of features that together explain a lot of the variance in
+ your data. On the other hand it is quite arbitrary when you stop, or 
+how many features you get rid off at each round. I hear you say, you can
+ do an exhaustive grid search on these hyper-parameters, or include some
+ cross-validation to make sure you stop at the right point.</p>
+<p style="text-align: justify;">But even then, this method essentially 
+is maximizing a regressor’s or classifier’s performance by selecting an 
+exceedingly pruned version of your input data matrix. This might be a 
+good a thing, but it can also throw away a number of important features.</p>
+<h4 style="text-align: justify;">How is Boruta different?</h4>
+<p style="text-align: justify;">Boruta is an all-relevant feature 
+selection method. It tries to capture all the important, interesting 
+features you might have in your dataset with respect to an outcome 
+variable.</p>
+<p style="text-align: justify;"></p><blockquote class="x-blockquote x-pullquote right">Boruta
+ is an all relevant feature selection method, while most other are 
+minimal optimal; this means it tries to find all features carrying 
+information usable for prediction, rather than finding a possibly 
+compact subset of features on which some classifier has a minimal error.<cite class="x-cite">Miron B. Kursa</cite></blockquote>
+<p style="text-align: justify;">This makes it really well suited for 
+biomedical data analysis, where we regularly collect measurements of 
+thousands of features (genes, proteins, metabolites, microbiomes in your
+ gut, etc), but we have absolutely no clue about which one is important 
+in relation to our outcome variable, or where should we cut off the 
+decreasing “importance function” of these.</p>
+<p style="text-align: justify;">As with so many great algorithms the 
+idea behind Boruta is really simple. First, we duplicate our dataset, 
+and shuffle the values in each column, these are called shadow features.</p>
+<p style="text-align: justify;">Then we train a classifier on our 
+dataset, such that we get importances for each of our features. Tree 
+ensemble methods such as Random Forest, Gradient Boosted Trees, and the 
+Extra Trees Classifiers are really great not only because they can 
+capture non-linear highly intricate relationships between your 
+predictors, but also because they tend to handle the small n large p 
+situation rather well.</p>
+<p style="text-align: justify;"></p><blockquote class="x-blockquote x-pullquote left">Why
+ should you care?&nbsp;For a start, when you try to understand the 
+phenomenon that made your data, you should care about all factors that 
+contribute to it, not just the bluntest signs of it in context of your 
+methodology (yes, minimal optimal set of features by definition depends 
+on your classifier choice).<cite class="x-cite">Miron B. Kursa</cite></blockquote>
+<p style="text-align: justify;">There is quite a lot of&nbsp;discussion 
+about whether these methods can truly overfit your training data, but 
+generally it is accepted that even if they do, this happens&nbsp;much 
+later with them than with many other machine learning algorithms.</p>
+<p style="text-align: justify;">Back to the Boruta. So we train one of 
+these ensemble methods on our merged training data and shadow features 
+(see the image below). Then we get the relative importance of each 
+feature from the ensemble method: higher means better or more important.</p>
+<p style="text-align: justify;">Then we check for each of our real 
+features if they have higher importance than the best of the shadow 
+features. If they do, we record this in a vector (these are called a 
+hits) and continue with another iteration. After a predefined set of 
+iterations we end up with a table of these hits.</p>
+<p style="text-align: justify;">At every iteration we check if a given 
+feature is doing better then expected than random chance. We do this by 
+simply comparing the number of times a feature did better than the 
+shadow features using a binomial distribution.</p>
+<p style="text-align: justify;"><a href="http://danielhomola.com/wp-content/uploads/2015/05/boruta.png"><img class="aligncenter wp-image-760 size-full" src="BorutaPy%20%E2%80%93%20an%20all%20relevant%20feature%20selection%20method%20_%20Daniel%20Homola_files/boruta-e1431125260361.png" alt="boruta" srcset="http://danielhomola.com/wp-content/uploads/2015/05/boruta-e1431125260361.png 606w, http://danielhomola.com/wp-content/uploads/2015/05/boruta-e1431125260361-300x213.png 300w, http://danielhomola.com/wp-content/uploads/2015/05/boruta-e1431125260361-100x71.png 100w" sizes="(max-width: 606px) 100vw, 606px" width="606" height="430"></a></p>
+<p style="text-align: justify;">In the case of feature #1 in the table 
+below, out of 3 runs it did better than the best of shadow features 3 
+times. So we calculate a p-value &nbsp;using the binomial distribution, 
+k=3, n=3, p=0.5. As we do this for thousands of features we need to 
+correct for multiple testing. The original method uses the rather 
+conservative Bonferroni correction for this. We say&nbsp;a feature is 
+confirmed to be important if its corrected p-value is lower than 0.01.</p>
+<p style="text-align: justify;"><a href="http://danielhomola.com/wp-content/uploads/2015/05/boruta2.png"><img class="aligncenter size-full wp-image-763" src="BorutaPy%20%E2%80%93%20an%20all%20relevant%20feature%20selection%20method%20_%20Daniel%20Homola_files/boruta2.png" alt="boruta2" srcset="http://danielhomola.com/wp-content/uploads/2015/05/boruta2.png 594w, http://danielhomola.com/wp-content/uploads/2015/05/boruta2-300x82.png 300w, http://danielhomola.com/wp-content/uploads/2015/05/boruta2-100x27.png 100w" sizes="(max-width: 594px) 100vw, 594px" width="594" height="162"></a></p>
+<p style="text-align: justify;">Then we remove its column from the original data matrix and continue with another iteration.</p>
+<p style="text-align: justify;">Conversely if a feature hasn’t been 
+recorded as a hit in say 15 iterations, we reject it and also remove it 
+from the original matrix. After a set number of iterations (or if all 
+the features have been either confirmed or rejected) we stop.</p>
+<p style="text-align: justify;">For all the parameters and options please check the <a href="https://github.com/danielhomola/boruta_py" target="_blank">GitHub</a>&nbsp;site and the documentation for&nbsp;more details.</p>
+<h4 style="text-align: justify;">Python implementation</h4>
+<p style="text-align: justify;">The Python 
+version&nbsp;requires&nbsp;numpy, scipy, scikit-learn a bottleneck, so 
+you’ll need to install these before trying it, but then you can simply 
+apply it to your dataset like this:</p>
+<!-- Crayon Syntax Highlighter v_2.7.2_beta -->
+
+		<div id="crayon-59d3b003f0d20260957751" class="crayon-syntax crayon-theme-github crayon-font-monaco crayon-os-pc print-yes notranslate" data-settings=" minimize scroll-mouseover" style="margin-top: 12px; margin-bottom: 12px; font-size: 12px !important; line-height: 15px !important; height: auto;">
+		
+			<div class="crayon-toolbar" data-settings=" mouseover overlay hide delay" style="font-size: 12px !important; height: 18px !important; line-height: 18px !important; margin-top: -18px; display: none; position: absolute; z-index: 2;"><span class="crayon-title">Boruta example</span>
+			<div class="crayon-tools" style="font-size: 12px !important;height: 18px !important; line-height: 18px !important;"><div class="crayon-button crayon-nums-button crayon-pressed" title="Toggle Line Numbers"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-plain-button" title="Toggle Plain Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-wrap-button" title="Toggle Line Wrap"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-expand-button" title="Expand Code" style="display: none;"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-copy-button" title="Copy"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-popup-button" title="Open Code In New Window"><div class="crayon-button-icon"></div></div><span class="crayon-language">Python</span></div></div>
+			<div class="crayon-info" style="min-height: 16.8px !important; line-height: 16.8px !important; margin-top: -17px; display: none;"></div>
+			<div class="crayon-plain-wrap"><textarea class="crayon-plain print-no" data-settings="dblclick" readonly="readonly" style="-moz-tab-size: 4; font-size: 12px !important; line-height: 15px !important; z-index: 0; opacity: 0; overflow: hidden;" wrap="soft">import pandas
+from sklearn.ensemble import RandomForestClassifier
+from boruta_py import boruta_py
+
+# load X and y
+X = pd.read_csv('my_X_table.csv', index_col=0).values
+y = pd.read_csv('my_y_vector.csv', index_col=0).values
+
+# define random forest classifier, with utilising all cores and
+# sampling in proportion to y labels
+forest = RandomForestClassifier(n_jobs=-1, class_weight='auto')
+
+# define Boruta feature selection method
+feat_selector = boruta_py.BorutaPy(forest, n_estimators='auto', verbose=2)
+
+# find all relevant features
+feat_selector.fit(X, y)
+
+# check selected features
+feat_selector.support_
+
+# check ranking of features
+feat_selector.ranking_
+
+# call transform() on X to filter it down to selected features
+X_filtered = feat_selector.transform(X)</textarea></div>
+			<div class="crayon-main" style="position: relative; z-index: 1; overflow: hidden;">
+				<table class="crayon-table" style="">
+					<tbody><tr class="crayon-row">
+				<td class="crayon-nums " data-settings="show">
+					<div class="crayon-nums-content" style="font-size: 12px !important; line-height: 15px !important;"><div class="crayon-num" data-line="crayon-59d3b003f0d20260957751-1">1</div><div class="crayon-num crayon-striped-num" data-line="crayon-59d3b003f0d20260957751-2">2</div><div class="crayon-num" data-line="crayon-59d3b003f0d20260957751-3">3</div><div class="crayon-num crayon-striped-num" data-line="crayon-59d3b003f0d20260957751-4">4</div><div class="crayon-num" data-line="crayon-59d3b003f0d20260957751-5">5</div><div class="crayon-num crayon-striped-num" data-line="crayon-59d3b003f0d20260957751-6">6</div><div class="crayon-num" data-line="crayon-59d3b003f0d20260957751-7">7</div><div class="crayon-num crayon-striped-num" data-line="crayon-59d3b003f0d20260957751-8">8</div><div class="crayon-num" data-line="crayon-59d3b003f0d20260957751-9">9</div><div class="crayon-num crayon-striped-num" data-line="crayon-59d3b003f0d20260957751-10">10</div><div class="crayon-num" data-line="crayon-59d3b003f0d20260957751-11">11</div><div class="crayon-num crayon-striped-num" data-line="crayon-59d3b003f0d20260957751-12">12</div><div class="crayon-num" data-line="crayon-59d3b003f0d20260957751-13">13</div><div class="crayon-num crayon-striped-num" data-line="crayon-59d3b003f0d20260957751-14">14</div><div class="crayon-num" data-line="crayon-59d3b003f0d20260957751-15">15</div><div class="crayon-num crayon-striped-num" data-line="crayon-59d3b003f0d20260957751-16">16</div><div class="crayon-num" data-line="crayon-59d3b003f0d20260957751-17">17</div><div class="crayon-num crayon-striped-num" data-line="crayon-59d3b003f0d20260957751-18">18</div><div class="crayon-num" data-line="crayon-59d3b003f0d20260957751-19">19</div><div class="crayon-num crayon-striped-num" data-line="crayon-59d3b003f0d20260957751-20">20</div><div class="crayon-num" data-line="crayon-59d3b003f0d20260957751-21">21</div><div class="crayon-num crayon-striped-num" data-line="crayon-59d3b003f0d20260957751-22">22</div><div class="crayon-num" data-line="crayon-59d3b003f0d20260957751-23">23</div><div class="crayon-num crayon-striped-num" data-line="crayon-59d3b003f0d20260957751-24">24</div><div class="crayon-num" data-line="crayon-59d3b003f0d20260957751-25">25</div><div class="crayon-num crayon-striped-num" data-line="crayon-59d3b003f0d20260957751-26">26</div></div>
+				</td>
+						<td class="crayon-code"><div class="crayon-pre" style="font-size: 12px !important; line-height: 15px !important; -moz-tab-size:4; -o-tab-size:4; -webkit-tab-size:4; tab-size:4;"><div class="crayon-line" id="crayon-59d3b003f0d20260957751-1"><span class="crayon-r">import</span><span class="crayon-h"> </span><span class="crayon-e">pandas</span></div><div class="crayon-line crayon-striped-line" id="crayon-59d3b003f0d20260957751-2"><span class="crayon-st">from</span><span class="crayon-h"> </span><span class="crayon-v">sklearn</span><span class="crayon-sy">.</span><span class="crayon-e">ensemble </span><span class="crayon-r">import</span><span class="crayon-h"> </span><span class="crayon-e">RandomForestClassifier</span></div><div class="crayon-line" id="crayon-59d3b003f0d20260957751-3"><span class="crayon-st">from</span><span class="crayon-h"> </span><span class="crayon-e">boruta_py </span><span class="crayon-r">import</span><span class="crayon-h"> </span><span class="crayon-v">boruta_py</span></div><div class="crayon-line crayon-striped-line" id="crayon-59d3b003f0d20260957751-4">&nbsp;</div><div class="crayon-line" id="crayon-59d3b003f0d20260957751-5"><span class="crayon-c"># load X and y</span></div><div class="crayon-line crayon-striped-line" id="crayon-59d3b003f0d20260957751-6"><span class="crayon-v">X</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-h"> </span><span class="crayon-v">pd</span><span class="crayon-sy">.</span><span class="crayon-e">read_csv</span><span class="crayon-sy">(</span><span class="crayon-s">'my_X_table.csv'</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-v">index_col</span><span class="crayon-o">=</span><span class="crayon-cn">0</span><span class="crayon-sy">)</span><span class="crayon-sy">.</span><span class="crayon-i">values</span></div><div class="crayon-line" id="crayon-59d3b003f0d20260957751-7"><span class="crayon-v">y</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-h"> </span><span class="crayon-v">pd</span><span class="crayon-sy">.</span><span class="crayon-e">read_csv</span><span class="crayon-sy">(</span><span class="crayon-s">'my_y_vector.csv'</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-v">index_col</span><span class="crayon-o">=</span><span class="crayon-cn">0</span><span class="crayon-sy">)</span><span class="crayon-sy">.</span><span class="crayon-v">values</span></div><div class="crayon-line crayon-striped-line" id="crayon-59d3b003f0d20260957751-8">&nbsp;</div><div class="crayon-line" id="crayon-59d3b003f0d20260957751-9"><span class="crayon-c"># define random forest classifier, with utilising all cores and</span></div><div class="crayon-line crayon-striped-line" id="crayon-59d3b003f0d20260957751-10"><span class="crayon-c"># sampling in proportion to y labels</span></div><div class="crayon-line" id="crayon-59d3b003f0d20260957751-11"><span class="crayon-v">forest</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-h"> </span><span class="crayon-e">RandomForestClassifier</span><span class="crayon-sy">(</span><span class="crayon-v">n_jobs</span><span class="crayon-o">=</span><span class="crayon-o">-</span><span class="crayon-cn">1</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-v">class_weight</span><span class="crayon-o">=</span><span class="crayon-s">'auto'</span><span class="crayon-sy">)</span></div><div class="crayon-line crayon-striped-line" id="crayon-59d3b003f0d20260957751-12">&nbsp;</div><div class="crayon-line" id="crayon-59d3b003f0d20260957751-13"><span class="crayon-c"># define Boruta feature selection method</span></div><div class="crayon-line crayon-striped-line" id="crayon-59d3b003f0d20260957751-14"><span class="crayon-v">feat_selector</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-h"> </span><span class="crayon-v">boruta_py</span><span class="crayon-sy">.</span><span class="crayon-e">BorutaPy</span><span class="crayon-sy">(</span><span class="crayon-v">forest</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-v">n_estimators</span><span class="crayon-o">=</span><span class="crayon-s">'auto'</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-v">verbose</span><span class="crayon-o">=</span><span class="crayon-cn">2</span><span class="crayon-sy">)</span></div><div class="crayon-line" id="crayon-59d3b003f0d20260957751-15">&nbsp;</div><div class="crayon-line crayon-striped-line" id="crayon-59d3b003f0d20260957751-16"><span class="crayon-c"># find all relevant features</span></div><div class="crayon-line" id="crayon-59d3b003f0d20260957751-17"><span class="crayon-v">feat_selector</span><span class="crayon-sy">.</span><span class="crayon-e">fit</span><span class="crayon-sy">(</span><span class="crayon-v">X</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-v">y</span><span class="crayon-sy">)</span></div><div class="crayon-line crayon-striped-line" id="crayon-59d3b003f0d20260957751-18">&nbsp;</div><div class="crayon-line" id="crayon-59d3b003f0d20260957751-19"><span class="crayon-c"># check selected features</span></div><div class="crayon-line crayon-striped-line" id="crayon-59d3b003f0d20260957751-20"><span class="crayon-v">feat_selector</span><span class="crayon-sy">.</span><span class="crayon-v">support_</span></div><div class="crayon-line" id="crayon-59d3b003f0d20260957751-21">&nbsp;</div><div class="crayon-line crayon-striped-line" id="crayon-59d3b003f0d20260957751-22"><span class="crayon-c"># check ranking of features</span></div><div class="crayon-line" id="crayon-59d3b003f0d20260957751-23"><span class="crayon-v">feat_selector</span><span class="crayon-sy">.</span><span class="crayon-v">ranking_</span></div><div class="crayon-line crayon-striped-line" id="crayon-59d3b003f0d20260957751-24">&nbsp;</div><div class="crayon-line" id="crayon-59d3b003f0d20260957751-25"><span class="crayon-c"># call transform() on X to filter it down to selected features</span></div><div class="crayon-line crayon-striped-line" id="crayon-59d3b003f0d20260957751-26"><span class="crayon-v">X_filtered</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-h"> </span><span class="crayon-v">feat_selector</span><span class="crayon-sy">.</span><span class="crayon-e">transform</span><span class="crayon-sy">(</span><span class="crayon-v">X</span><span class="crayon-sy">)</span></div></div></td>
+					</tr>
+				</tbody></table>
+			</div>
+		</div>
+<!-- [Format Time: 0.0086 seconds] -->
+
+<p style="text-align: justify;">&nbsp;Again, all of the parameters, 
+attributes and methods are documented with docstrings so grab a copy or 
+fork it and let me know what you think!</p>
+<div class="sharedaddy sd-sharing-enabled"><div class="robots-nocontent sd-block sd-social sd-social-icon sd-sharing"><h3 class="sd-title">Share this:</h3><div class="sd-content"><ul><li><a href="#" class="sharing-anchor sd-button share-more"><span>Share</span></a></li><li class="share-end"></li></ul><div class="sharing-hidden"><div class="inner" style="display: none;"><ul><li class="share-email share-service-visible"><a rel="nofollow" data-shared="" class="share-email sd-button share-icon no-text" href="http://danielhomola.com/2015/05/08/borutapy-an-all-relevant-feature-selection-method/?share=email&amp;nb=1" target="_blank" title="Click to email this to a friend"><span></span><span class="sharing-screen-reader-text">Click to email this to a friend (Opens in new window)</span></a></li><li class="share-twitter"><a rel="nofollow" data-shared="sharing-twitter-756" class="share-twitter sd-button share-icon no-text" href="http://danielhomola.com/2015/05/08/borutapy-an-all-relevant-feature-selection-method/?share=twitter&amp;nb=1" target="_blank" title="Click to share on Twitter"><span></span><span class="sharing-screen-reader-text">Click to share on Twitter (Opens in new window)</span></a></li><li class="share-end"></li><li class="share-facebook"><a rel="nofollow" data-shared="sharing-facebook-756" class="share-facebook sd-button share-icon no-text" href="http://danielhomola.com/2015/05/08/borutapy-an-all-relevant-feature-selection-method/?share=facebook&amp;nb=1" target="_blank" title="Click to share on Facebook"><span><span class="share-count">16</span></span><span class="sharing-screen-reader-text">Click to share on Facebook (Opens in new window)<span class="share-count">16</span></span></a></li><li class="share-linkedin"><a rel="nofollow" data-shared="sharing-linkedin-756" class="share-linkedin sd-button share-icon no-text" href="http://danielhomola.com/2015/05/08/borutapy-an-all-relevant-feature-selection-method/?share=linkedin&amp;nb=1" target="_blank" title="Click to share on LinkedIn"><span><span class="share-count">30</span></span><span class="sharing-screen-reader-text">Click to share on LinkedIn (Opens in new window)<span class="share-count">30</span></span></a></li><li class="share-end"></li><li class="share-reddit"><a rel="nofollow" data-shared="" class="share-reddit sd-button share-icon no-text" href="http://danielhomola.com/2015/05/08/borutapy-an-all-relevant-feature-selection-method/?share=reddit&amp;nb=1" target="_blank" title="Click to share on Reddit"><span></span><span class="sharing-screen-reader-text">Click to share on Reddit (Opens in new window)</span></a></li><li class="share-end"></li></ul></div></div></div></div></div>  
+
+</div>
+
+  </div>
+  
+  <footer class="entry-footer cf">
+    <a href="http://danielhomola.com/tag/all-relevant/" rel="tag">all relevant</a><a href="http://danielhomola.com/tag/boruta/" rel="tag">boruta</a><a href="http://danielhomola.com/tag/borutapy/" rel="tag">borutapy</a><a href="http://danielhomola.com/tag/feature-selection/" rel="tag">feature selection</a>  </footer>
+  <span class="visually-hidden"><span class="author vcard"><span class="fn">danielhomola</span></span><span class="entry-title">BorutaPy – an all relevant feature selection method</span><time class="entry-date updated" datetime="2015-05-08T18:25:08+00:00">05.08.2015</time></span></article>        
+      
+<div id="disqus_thread"><iframe id="dsq-app5345" name="dsq-app5345" allowtransparency="true" scrolling="no" tabindex="0" title="Disqus" style="width: 1px !important; min-width: 100% !important; border: medium none !important; overflow: hidden !important; height: 2099px !important;" src="BorutaPy%20%E2%80%93%20an%20all%20relevant%20feature%20selection%20method%20_%20Daniel%20Homola_files/a.htm" horizontalscrolling="no" verticalscrolling="no" width="100%" frameborder="0"></iframe></div>
+
+        
+    </div>
+
+          
+
+    
+  </div>
+
+
+
+  
+    
+
+  <a class="x-scroll-top right fade in" href="#top" title="Back to Top">
+    <i class="x-icon-angle-up"></i>
+  </a>
+
+  <script>
+
+  jQuery(document).ready(function($) {
+
+    //
+    // Scroll top anchor.
+    //
+    // 1. Get the number of pixels to the bottom of the page.
+    // 2. Get the difference from the body height and the bottom offset.
+    // 3. Output the adjusted height for the page for acurate percentage parameter.
+    //
+
+    var windowObj            = $(window);
+    var body                 = $('body');
+    var bodyOffsetBottom     = windowObj.scrollBottom();             // 1
+    var bodyHeightAdjustment = body.height() - bodyOffsetBottom;     // 2
+    var bodyHeightAdjusted   = body.height() - bodyHeightAdjustment; // 3
+    var scrollTopAnchor      = $('.x-scroll-top');
+
+    function sizingUpdate(){
+      var bodyOffsetTop = windowObj.scrollTop();
+      if ( bodyOffsetTop > ( bodyHeightAdjusted * 0 ) ) {
+        scrollTopAnchor.addClass('in');
+      } else {
+        scrollTopAnchor.removeClass('in');
+      }
+    }
+
+    windowObj.bind('scroll', sizingUpdate).resize(sizingUpdate);
+    sizingUpdate();
+
+    scrollTopAnchor.click(function(){
+      $('html,body').animate({ scrollTop: 0 }, 850, 'easeInOutExpo');
+      return false;
+    });
+
+  });
+
+  </script>
+
+  
+
+  
+    <footer class="x-colophon bottom" role="contentinfo">
+      <div class="x-container-fluid max width">
+
+        
+                  <div class="x-social-global"><a href="https://github.com/danielhomola" class="rss" title="Github" target="_blank"><i class="x-icon-github"></i></a><a href="https://twitter.com/daniel_homola" class="twitter" title="Twitter" target="_blank"><i class="x-social-twitter"></i></a><a href="https://scholar.google.com/citations?user=WvQsyr8AAAAJ&amp;hl=en" class="google-plus" title="Google+" target="_blank"><i class="x-social-google-plus"></i></a><a href="https://uk.linkedin.com/in/daniel-homola-1b6a0638" class="linkedin" title="LinkedIn" target="_blank"><i class="x-social-linkedin"></i></a><a href="https://www.youtube.com/c/DanielHomola" class="youtube" title="YouTube" target="_blank"><i class="x-social-youtube"></i></a></div>        
+                  <div class="x-colophon-content">
+            <p>Copyright © <script type="text/javascript">
+var d = new Date()
+document.write(d.getFullYear())
+</script>2017 Daniel Homola</p>          </div>
+        
+      </div>
+    </footer>
+
+  
+
+  
+      <div class="x-searchform-overlay">
+        <div class="x-searchform-overlay-inner">
+          <div class="x-container-fluid max width">
+            <form method="get" id="searchform" class="form-search center-text" action="http://danielhomola.com/">
+              <label for="s" class="cfc-h-tx tt-upper">Type and Press “enter” to Search</label>
+              <input id="s" class="search-query cfc-h-tx center-text tt-upper" name="s" type="text">
+            </form>
+          </div>
+        </div>
+      </div>
+
+      
+  </div> <!-- END #top.site -->
+
+  
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-21253136-1', 'auto');
+  ga('send', 'pageview');
+
+</script>	<div style="display:none">
+	</div>
+
+	<script type="text/javascript">
+		window.WPCOM_sharing_counts = {"http:\/\/danielhomola.com\/2015\/05\/08\/borutapy-an-all-relevant-feature-selection-method\/":756};
+	</script>
+	
+<script type="text/javascript" src="BorutaPy%20%E2%80%93%20an%20all%20relevant%20feature%20selection%20method%20_%20Daniel%20Homola_files/jquery_004.js"></script>
+<script type="text/javascript">
+/* <![CDATA[ */
+var _wpcf7 = {"recaptcha":{"messages":{"empty":"Please verify that you are not a robot."}}};
+/* ]]> */
+</script>
+<script type="text/javascript" src="BorutaPy%20%E2%80%93%20an%20all%20relevant%20feature%20selection%20method%20_%20Daniel%20Homola_files/scripts.js"></script>
+<script type="text/javascript" src="BorutaPy%20%E2%80%93%20an%20all%20relevant%20feature%20selection%20method%20_%20Daniel%20Homola_files/devicepx-jetpack.js"></script>
+<script type="text/javascript" src="BorutaPy%20%E2%80%93%20an%20all%20relevant%20feature%20selection%20method%20_%20Daniel%20Homola_files/x-body.js"></script>
+<script type="text/javascript" src="BorutaPy%20%E2%80%93%20an%20all%20relevant%20feature%20selection%20method%20_%20Daniel%20Homola_files/comment-reply.js"></script>
+<script type="text/javascript" src="BorutaPy%20%E2%80%93%20an%20all%20relevant%20feature%20selection%20method%20_%20Daniel%20Homola_files/x-shortcodes-body.js"></script>
+<script type="text/javascript" src="BorutaPy%20%E2%80%93%20an%20all%20relevant%20feature%20selection%20method%20_%20Daniel%20Homola_files/wp-embed.js"></script>
+<script type="text/javascript">
+/* <![CDATA[ */
+var embedVars = {"disqusConfig":{"platform":"wordpress@4.7.6","language":""},"disqusIdentifier":"756 http:\/\/danielhomola.com\/?p=756","disqusShortname":"danielhomolacom","disqusTitle":"BorutaPy \u2013 an all relevant feature selection method","disqusUrl":"http:\/\/danielhomola.com\/2015\/05\/08\/borutapy-an-all-relevant-feature-selection-method\/","options":{"manualSync":false},"postId":"756"};
+/* ]]> */
+</script>
+<script type="text/javascript" src="BorutaPy%20%E2%80%93%20an%20all%20relevant%20feature%20selection%20method%20_%20Daniel%20Homola_files/disqus.js"></script>
+<script type="text/javascript">
+/* <![CDATA[ */
+var countVars = {"disqusShortname":"danielhomolacom"};
+/* ]]> */
+</script>
+<script type="text/javascript" src="BorutaPy%20%E2%80%93%20an%20all%20relevant%20feature%20selection%20method%20_%20Daniel%20Homola_files/count.js"></script>
+<script type="text/javascript">
+/* <![CDATA[ */
+var sharing_js_options = {"lang":"en","counts":"1"};
+/* ]]> */
+</script>
+<script type="text/javascript" src="BorutaPy%20%E2%80%93%20an%20all%20relevant%20feature%20selection%20method%20_%20Daniel%20Homola_files/sharing.js"></script>
+<script type="text/javascript">
+var windowOpen;
+			jQuery( document.body ).on( 'click', 'a.share-twitter', function() {
+				// If there's another sharing window open, close it.
+				if ( 'undefined' !== typeof windowOpen ) {
+					windowOpen.close();
+				}
+				windowOpen = window.open( jQuery( this ).attr( 'href' ), 'wpcomtwitter', 'menubar=1,resizable=1,width=600,height=350' );
+				return false;
+			});
+var windowOpen;
+			jQuery( document.body ).on( 'click', 'a.share-facebook', function() {
+				// If there's another sharing window open, close it.
+				if ( 'undefined' !== typeof windowOpen ) {
+					windowOpen.close();
+				}
+				windowOpen = window.open( jQuery( this ).attr( 'href' ), 'wpcomfacebook', 'menubar=1,resizable=1,width=600,height=400' );
+				return false;
+			});
+var windowOpen;
+			jQuery( document.body ).on( 'click', 'a.share-linkedin', function() {
+				// If there's another sharing window open, close it.
+				if ( 'undefined' !== typeof windowOpen ) {
+					windowOpen.close();
+				}
+				windowOpen = window.open( jQuery( this ).attr( 'href' ), 'wpcomlinkedin', 'menubar=1,resizable=1,width=580,height=450' );
+				return false;
+			});
+</script>
+<script type="text/javascript" src="BorutaPy%20%E2%80%93%20an%20all%20relevant%20feature%20selection%20method%20_%20Daniel%20Homola_files/e-201740.js" async="" defer="defer"></script>
+<script type="text/javascript">
+	_stq = window._stq || [];
+	_stq.push([ 'view', {v:'ext',j:'1:4.8.2',blog:'91343049',post:'756',tz:'0',srv:'danielhomola.com'} ]);
+	_stq.push([ 'clickTrackerInit', '91343049', '756' ]);
+</script>
+
+
+  
+
+  
+    
+      <script>jQuery.backstretch(['//danielhomola.com/wp-content/uploads/2015/01/the-ocean.jpg'], {fade: 500});</script><div class="backstretch" style="left: 0px; top: 0px; overflow: hidden; margin: 0px; padding: 0px; height: 767px; width: 1583px; z-index: -999999; position: fixed;"><img style="position: absolute; margin: 0px; padding: 0px; border: medium none; width: 1583px; height: 890.161px; max-height: none; max-width: none; z-index: -999999; left: 0px; top: -61.5807px;" src="BorutaPy%20%E2%80%93%20an%20all%20relevant%20feature%20selection%20method%20_%20Daniel%20Homola_files/the-ocean.jpg"></div>
+
+    
+  
+
+<img src="BorutaPy%20%E2%80%93%20an%20all%20relevant%20feature%20selection%20method%20_%20Daniel%20Homola_files/g.gif" alt=":)" id="wpstats" width="6" height="5"><div id="sharing_email" style="display: none;">
+		<form action="/2015/05/08/borutapy-an-all-relevant-feature-selection-method/" method="post">
+			<label for="target_email">Send to Email Address</label>
+			<input name="target_email" id="target_email" type="email">
+
+			
+				<label for="source_name">Your Name</label>
+				<input name="source_name" id="source_name" type="text">
+
+				<label for="source_email">Your Email Address</label>
+				<input name="source_email" id="source_email" type="email">
+
+						<input id="jetpack-source_f_name" name="source_f_name" class="input" size="25" autocomplete="off" title="This field is for validation and should not be changed" type="text">
+			<script>jQuery( document ).ready( function(){ document.getElementById('jetpack-source_f_name').value = '' });</script>
+			
+			<img style="float: right; display: none" class="loading" src="BorutaPy%20%E2%80%93%20an%20all%20relevant%20feature%20selection%20method%20_%20Daniel%20Homola_files/loading.gif" alt="loading" width="16" height="16">
+			<input value="Send Email" class="sharing_send" type="submit">
+			<a rel="nofollow" href="#cancel" class="sharing_cancel">Cancel</a>
+
+			<div class="errors errors-1" style="display: none;">
+				Post was not sent - check your email addresses!			</div>
+
+			<div class="errors errors-2" style="display: none;">
+				Email check failed, please try again			</div>
+
+			<div class="errors errors-3" style="display: none;">
+				Sorry, your blog cannot share posts by email.			</div>
+		</form>
+	</div><iframe style="display: none;"></iframe></body></html>
