@@ -1,3 +1,9 @@
+##Este es un proyecto el cual se basa en la competencia:
+https://www.kaggle.com/c/asap-aes de la pagina https://www.kaggle.com/
+
+No participe pero contemple las tareas esenciales, precargar los datos, preprocesarlos, entrenar los modelos de aprendiaje 
+y usar la metrica kappa para evaluacion del mmodelo.
+
 System Short Answer Scoring   evaluación de escritura automática
 
 Se uso un sistema operativo windows 7 en vercion de 32 bits
